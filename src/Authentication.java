@@ -7,6 +7,7 @@ public class Authentication {
     //File-Path of file containing user authentication data
     private static final String user_authentication_data ="Data/User_Authentication/authentication_credentials.csv";
 
+    private static String users="Data/Users/";
     //New User Sign Up
     public static boolean SignUp(String userID,String password){
 
@@ -15,6 +16,14 @@ public class Authentication {
 
         //Creating comma separated userId and password as the UserRecord
         String userRecord= userID+","+hashedPassword;
+
+        // Creating a directory for the user under 'Users' directory
+        File userDirectory = new File(users + userID);
+        if (!userDirectory.exists()) {
+            if (!userDirectory.mkdirs()) {
+                return false; // Failed to create user folder
+            }
+        }
 
         //Inserting new user's record using a File Writer
         try (FileWriter f = new FileWriter(user_authentication_data,true)) {
