@@ -38,7 +38,7 @@ public class Main {
                     if (Authentication.login(UserID_login, Password_Login)) {
                         System.out.println("Login Successful");
                     } else {
-                        System.out.println("Incorrect Login Credentials");
+                        System.out.println("Incorrect/Invalid Login Credentials");
                     }
                     break;
 

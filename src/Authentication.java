@@ -83,13 +83,21 @@ public class Authentication {
             while((line= br.readLine())!=null){
                 String storedUserID=line.split(",")[0];
                 String storedPassword=line.split(",")[1];
+
                 if(storedUserID.equals(userID)){
                     String password_hash=Authentication.hashPassword(password);
                     if(storedPassword.equals(password_hash)){
-                        return true;
-                    }
-                }
+                        //Generate Captcha
+                        Captcha.generateCaptcha();
 
+                        System.out.println("Enter the following captcha: " +Captcha.getCaptcha());
+                        Scanner sc=new Scanner(System.in);
+                        String enteredCaptcha=sc.next();
+
+                        return Captcha.verifyCaptcha(enteredCaptcha);
+                    }
+                    break;
+                }
             }
             return false;
         }catch (IOException e){
