@@ -6,8 +6,13 @@ public class Authentication {
 
     //File-Path of file containing user authentication data
     private static final String user_authentication_data ="Data/User_Authentication/authentication_credentials.csv";
-
     private static String users="Data/Users/";
+
+    //UserId of logged in User
+    private static String currentUserID;
+
+    //Login Status
+    public static boolean loginStatus=false;
     //New User Sign Up
     public static boolean SignUp(String userID,String password){
 
@@ -72,6 +77,10 @@ public class Authentication {
                 String storedUserID=line.split(",")[0];
 
                 if(storedUserID.equals(userID)){
+
+                    //Set login status to true and the logged-in user if credentials are valid
+                    loginStatus=true;
+                    currentUserID=userID;
                     //returning true if found a user with passed userID
                     return true;
                 }
@@ -116,7 +125,20 @@ public class Authentication {
             return false;
         }
     }
-    
 
+    //Get login status
+    public static boolean getloginStatus() {
+        return loginStatus;
+    }
+
+    //Get logged-in userID
+    public static String getCurrentUserID(){
+     return currentUserID;
+    }
+
+    public static void LogOut(){
+        loginStatus=false;
+        currentUserID=null;
+    }
 
 }
