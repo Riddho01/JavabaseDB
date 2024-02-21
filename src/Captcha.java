@@ -13,8 +13,8 @@ public class Captcha {
 
         Random rand=new Random();
         //Hard-Coded values of minimum and maximum length of captcha
-        int minLength=6;
-        int maxLength=10;
+        int minLength=25;
+        int maxLength=300;
 
         //Generate the random length of the captcha within the bounds of minLength and maxLength
         int length=rand.nextInt((maxLength-minLength)+1)+minLength;

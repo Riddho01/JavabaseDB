@@ -5,7 +5,8 @@ import java.security.NoSuchAlgorithmException;
 public class Authentication {
 
     //File-Path of file containing user authentication data
-    private static final String user_data="Data/User/users.csv";
+    private static final String user_auth_data ="Data/User_Authentication/user_credentials.csv";
+    private static final String users="Data/Users/";
 
     //New User Sign Up
     public static boolean SignUp(String userID,String password){
@@ -17,10 +18,18 @@ public class Authentication {
         String userRecord= userID+","+hashedPassword;
 
         //Inserting new user's record using a File Writer
-        try (FileWriter f = new FileWriter(user_data,true)) {
+        try (FileWriter f = new FileWriter(user_auth_data,true)) {
                 f.write(userRecord+"\n");
 
-                //Returning True indicating user authentication captured successfully
+            //Creating a directory for the user under 'Users' directory
+            File userDiretory = new File(users+userID);
+            if (!userDiretory.exists()) {
+                if (!userDiretory.mkdirs()) {
+                    return false; // Failed to create user folder
+                }
+            }
+
+                //Returning True indicating user signed up successfully
                 return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -55,7 +64,7 @@ public class Authentication {
     public static boolean userExists(String userID){
 
         //Traversing through the users.csv file and checking if the entered UserId already exists
-        try(BufferedReader br=new BufferedReader( new FileReader(user_data))){
+        try(BufferedReader br=new BufferedReader( new FileReader(user_auth_data))){
 
             String line;
             while((line = br.readLine())!=null){
@@ -77,7 +86,7 @@ public class Authentication {
 
     public static boolean login(String userID, String password){
 
-        try(BufferedReader br=new BufferedReader(new FileReader(user_data))){
+        try(BufferedReader br=new BufferedReader(new FileReader(user_auth_data))){
 
             String line;
             while((line= br.readLine())!=null){
