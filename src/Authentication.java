@@ -75,5 +75,30 @@ public class Authentication {
         return false;
     }
 
+    public static boolean login(String userID, String password){
+
+        try(BufferedReader br=new BufferedReader(new FileReader(user_data))){
+
+            String line;
+            while((line= br.readLine())!=null){
+                String storedUserID=line.split(",")[0];
+                String storedPassword=line.split(",")[1];
+                if(storedUserID.equals(userID)){
+                    String password_hash=Authentication.hashPassword(password);
+                    if(storedPassword.equals(password_hash)){
+                        return true;
+                    }
+                }
+
+            }
+            return false;
+        }catch (IOException e){
+            e.printStackTrace();
+
+            //if any error occurs, indicate failure by returning false
+            return false;
+        }
+    }
+
 
 }
