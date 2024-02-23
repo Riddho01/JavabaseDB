@@ -8,6 +8,7 @@ public class User {
     //Logged-in user's Id
     private static String currentUserID=null;
 
+    //Check if user with given id exists
     public static boolean userExists(String userID){
 
         //Traversing through the users.csv file and checking if the entered UserId already exists
@@ -29,6 +30,7 @@ public class User {
         return false;
     }
 
+    //Get user's database folder path
     public static String getUserDBPath() {
         //current user's directory
         String userdirPath=Authentication.getUsers()+User.getCurrentUserID();

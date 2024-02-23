@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Parse {
 
@@ -72,6 +74,26 @@ public class Parse {
 
         }
 
+        //Parse insert into command
+        else if(command.startsWith("insert into")){
+
+            String query_pattern="(?i)insert\\s+into\\s+(\\w+)\\s+values\\s*\\((.*?)\\)";
+            Pattern p= Pattern.compile(query_pattern);
+
+            Matcher m=p.matcher(command);
+            if(!m.find()){
+                System.out.println("Incorrect command format. Try insert into <table name> values(<value1>, <value 2>.....)");
+                return;
+            }
+
+            String tablename=m.group(1);
+            String values=m.group(2);
+
+            System.out.println(tablename);
+            System.out.println(values);
+
+
+        }
 
 
         //Query cannot be parsed
