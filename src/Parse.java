@@ -118,6 +118,28 @@ public class Parse {
 
         }
 
+        //Parse select commands
+        else if(command.startsWith("select")){
+
+            Pattern select_all=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s*;?$");
+
+
+            Matcher match;
+
+
+            if ((match = select_all.matcher(command)).matches()) {
+                String tablename=match.group(1);
+                if(!Table.doesTableExist(tablename)){
+                    System.out.println("Table: "+tablename+" does not exist");
+                }
+                
+                //Query.selectStar(tablename);
+            }
+
+
+
+        }
+
 
 
 
