@@ -123,9 +123,9 @@ public class Parse {
 
             Pattern select_all=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s*;?$");
             Pattern select_allWhere=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*(\\w+|'[^']*'|\"[^\"]*\")\\s*;?$");
+            Pattern selectColumns=Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s*;?$");
 
             Matcher match;
-
 
             //Match select* from tablename command
             if ((match = select_all.matcher(command)).matches()) {
@@ -148,14 +148,28 @@ public class Parse {
                     return;
                 }
 
-                if(!Table.doesColExist(tablename,columnanme)){
+                //If column name does not exist in table
+                else if(!Table.doesColExist(tablename,columnanme)){
                     System.out.println("Column: "+columnanme+" does not exist in Table: "+tablename);
                     return;
                 }
 
-                System.out.println("Query Parsed");
+                String operator=match.group(3);
+                String value=match.group(4);
 
+             // Query.selectStarWhere(tablename,value,operator)
             }
+
+            else if ((match = selectColumns.matcher(command)).find()) {
+
+                
+            }
+
+
+            else{
+                System.out.println("Invalid command format: Try select <* OR Column Names> from <table name> where <column name> = <value>");
+            }
+
 
         }
 
