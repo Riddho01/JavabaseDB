@@ -41,5 +41,17 @@ public class Table {
         return md;
     }
 
+    //Check if column exists in table
+    public static boolean doesColExist(String tablename, String columname){
+        List<Column> columns=Table.getTableMD(tablename);
+
+        for(Column col: columns){
+            if(col.getName().trim().equalsIgnoreCase(columname.trim())){
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

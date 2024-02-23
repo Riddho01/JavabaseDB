@@ -122,21 +122,40 @@ public class Parse {
         else if(command.startsWith("select")){
 
             Pattern select_all=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s*;?$");
-
+            Pattern select_allWhere=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*(\\w+|'[^']*'|\"[^\"]*\")\\s*;?$");
 
             Matcher match;
 
 
+            //Match select* from tablename command
             if ((match = select_all.matcher(command)).matches()) {
                 String tablename=match.group(1);
                 if(!Table.doesTableExist(tablename)){
                     System.out.println("Table: "+tablename+" does not exist");
                 }
-                
                 //Query.selectStar(tablename);
             }
 
+            //Match select*from tablename where col=value
+            else if ((match = select_allWhere.matcher(command)).matches()) {
 
+                String tablename = match.group(1);
+                String columnanme=match.group(2);
+
+                //Table name passed does not exist
+                if(!Table.doesTableExist(tablename)){
+                    System.out.println("Table does not exist");
+                    return;
+                }
+
+                if(!Table.doesColExist(tablename,columnanme)){
+                    System.out.println("Column: "+columnanme+" does not exist in Table: "+tablename);
+                    return;
+                }
+
+                System.out.println("Query Parsed");
+
+            }
 
         }
 
