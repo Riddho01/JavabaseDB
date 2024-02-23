@@ -104,8 +104,21 @@ public class Parse {
                 System.out.println("Invalid number of provided values");
             }
 
+            //Verify value passed matches datatype of corresponding column
+            for(int i=0;i<md.size();i++){
+                    if(!Util.verifyType(values[i], md.get(i).getDatatype())){
+                        System.out.println("Type mismatch for column: "+md.get(i).getName()+". Expected type: "+md.get(i).getDatatype());
+                        return;
+                    }
+
+            }
+
+            System.out.println("Correct types");
+
 
         }
+
+
 
 
         //Query cannot be parsed
