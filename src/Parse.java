@@ -113,7 +113,7 @@ public class Parse {
 
             }
 
-            System.out.println("Correct types");
+            Query.insertInto(tablename,values);
 
 
         }

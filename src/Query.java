@@ -1,6 +1,4 @@
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -8,7 +6,7 @@ import java.util.List;
 
 public class Query {
 
-    //create database method
+    //Create database
     public static void createDatabase(String dbname){
 
         if(User.getUserDBPath()!=null){
@@ -26,6 +24,7 @@ public class Query {
 
     }
 
+    //Create tables in database
     public static void createTable(String tablename, List<String> columndefs){
 
         //Current user's database folder path
@@ -69,6 +68,36 @@ public class Query {
 
         }
 
+    }
+
+    //Insert data in tables
+    public static void insertInto(String tablename,String[] values){
+
+        //Table data file path
+        String tbdataPath=Table.getTableMDPath(tablename).replace(".json",".csv");
+
+        try (FileWriter f = new FileWriter(tbdataPath, true); BufferedWriter br = new BufferedWriter(f); PrintWriter write = new PrintWriter(br)) {
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 0; i < values.length; i++) {
+                sb.append(values[i]);
+                if (i < values.length - 1) { // If not the last value, append a comma
+                    sb.append(",");
+                }
+            }
+
+//            write.println(sb.toString());
+//            System.out.println("Values inserted into " + tablename+ ".");
+
+            if (new File(tbdataPath).length()==0) {
+                write.print(sb.toString()); // Use print to avoid adding a newline
+            } else {
+                write.println(sb.toString()); // Use println to add a newline after the data
+            }
+
+    }catch (IOException e){
+            System.out.println("Failed to insert values into: "+tablename);
+        }
     }
 
 }
