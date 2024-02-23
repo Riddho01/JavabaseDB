@@ -8,9 +8,6 @@ public class Authentication {
     private static final String user_authentication_data ="Data/User_Authentication/authentication_credentials.csv";
     private static final String users="Data/Users/";
 
-    //UserId of logged in User
-    private static String currentUserID;
-
     //New User Sign Up
     public static boolean SignUp(String userID,String password){
 
@@ -64,30 +61,7 @@ public class Authentication {
         }
     }
 
-    public static boolean userExists(String userID){
-
-        //Traversing through the users.csv file and checking if the entered UserId already exists
-        try(BufferedReader br=new BufferedReader( new FileReader(user_authentication_data))){
-
-            String line;
-            while((line = br.readLine())!=null){
-
-                String storedUserID=line.split(",")[0];
-
-                if(storedUserID.equals(userID)){
-
-                    //returning true if found a user with passed userID
-                    return true;
-                }
-            }
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        //If UserId does not exist in users.csv, returning false.
-        return false;
-    }
-
+    //Existing User Login
     public static boolean login(String userID, String password){
 
         try(BufferedReader br=new BufferedReader(new FileReader(user_authentication_data))){
@@ -122,13 +96,8 @@ public class Authentication {
     }
 
    // Getters and Setters
-
-    public static String getCurrentUserID() {
-        return currentUserID;
-    }
-
-    public static void setCurrentUserID(String currentUserID) {
-        Authentication.currentUserID = currentUserID;
+    public static String getUser_authentication_data(){
+        return user_authentication_data;
     }
 
     public static String getUsers() {

@@ -13,7 +13,7 @@ public class Main {
                         System.out.println("Enter UserId");
                         String UserId = sc.next();
                         sc.nextLine();
-                        if (Authentication.userExists(UserId)) {
+                        if (User.userExists(UserId)) {
                             System.out.println("User already exists");
                             break;
                         }
@@ -37,7 +37,8 @@ public class Main {
 
                         if (Authentication.login(UserID_login, Password_Login)) {
                             System.out.println("Login Successful");
-                            Authentication.setCurrentUserID(UserID_login);
+                            //Authentication.setCurrentUserID(UserID_login);
+                            User.setCurrentUserID(UserID_login);
 
                             sc.nextLine();
                             //User can enter MySQL commands, until they enter Logout
@@ -48,11 +49,12 @@ public class Main {
 
                                 if(command.trim().equalsIgnoreCase("Logout")){
 
-                                    Authentication.setCurrentUserID(null);
+                                   // Authentication.setCurrentUserID(null);
+                                    User.setCurrentUserID(null);
                                     break;
                                 }
 
-                                Query.parseCommand(command);
+                                Parse.parseCommand(command);
 
                             }
 
