@@ -87,7 +87,7 @@ public class Parse {
             }
 
             String tablename=m.group(1);
-            String values=m.group(2);
+            String values_part=m.group(2);
 
             if(!Table.doesTableExist(tablename)){
                 System.out.println("Table does not exist");
@@ -96,7 +96,15 @@ public class Parse {
 
             //If table exists, get the meta-data of the tablename
             List<Column> md=Table.getTableMD(tablename);
-            
+
+            String[] values=values_part.split("\\s*,\\s*");
+
+            //Number of values passed should be the equal to number of columns in table metadata
+            if(values.length!=md.size()){
+                System.out.println("Invalid number of provided values");
+            }
+
+
         }
 
 
