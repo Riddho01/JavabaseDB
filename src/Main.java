@@ -37,7 +37,6 @@ public class Main {
 
                         if (Authentication.login(UserID_login, Password_Login)) {
                             System.out.println("Login Successful");
-                            Authentication.setLoginStatus(true);
                             Authentication.setCurrentUserID(UserID_login);
 
                             sc.nextLine();
@@ -50,7 +49,6 @@ public class Main {
                                 if(command.trim().equalsIgnoreCase("Logout")){
 
                                     Authentication.setCurrentUserID(null);
-                                    Authentication.setLoginStatus(false);
                                     break;
                                 }
 

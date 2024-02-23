@@ -11,9 +11,6 @@ public class Authentication {
     //UserId of logged in User
     private static String currentUserID;
 
-    //Login Status
-    private static boolean loginStatus=false;
-
     //New User Sign Up
     public static boolean SignUp(String userID,String password){
 
@@ -125,13 +122,6 @@ public class Authentication {
     }
 
    // Getters and Setters
-    public static boolean getLoginStatus() {
-        return loginStatus;
-    }
-
-    public static void setLoginStatus(boolean loginStatus) {
-        Authentication.loginStatus = loginStatus;
-    }
 
     public static String getCurrentUserID() {
         return currentUserID;
