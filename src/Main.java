@@ -2,8 +2,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 
-
-
         while (true) {
             //User Choices
             System.out.println("1. Sign-Up\n2. Login\n3. Exit");
@@ -49,7 +47,7 @@ public class Main {
 
                                 String command = sc.nextLine();
 
-                                if(command.equalsIgnoreCase("Logout")){
+                                if(command.trim().equalsIgnoreCase("Logout")){
 
                                     Authentication.setCurrentUserID(null);
                                     Authentication.setLoginStatus(false);
