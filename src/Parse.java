@@ -94,10 +94,9 @@ public class Parse {
                 return;
             }
 
-            //If table exists, get path of meta-data file
-            String tablemdPath=Table.getTableMDPath(tablename);
-
-
+            //If table exists, get the meta-data of the tablename
+            List<Column> md=Table.getTableMD(tablename);
+            
         }
 
 
