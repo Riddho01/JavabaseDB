@@ -89,8 +89,13 @@ public class Parse {
             String tablename=m.group(1);
             String values=m.group(2);
 
-            System.out.println(tablename);
-            System.out.println(values);
+            if(!Table.doesTableExist(tablename)){
+                System.out.println("Table does not exist");
+                return;
+            }
+
+            //If table exists, get path of meta-data file
+            String tablemdPath=Table.getTableMDPath(tablename);
 
 
         }
