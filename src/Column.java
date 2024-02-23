@@ -6,7 +6,6 @@ public class Column {
     //Column datatype attribute
     private String datatype;
 
-
     public Column(String name, String datatype) {
         this.name = name;
         this.datatype = datatype;

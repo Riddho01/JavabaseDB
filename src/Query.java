@@ -86,14 +86,13 @@ public class Query {
                 }
             }
 
-//            write.println(sb.toString());
-//            System.out.println("Values inserted into " + tablename+ ".");
-
             if (new File(tbdataPath).length()==0) {
-                write.print(sb.toString()); // Use print to avoid adding a newline
+                write.print(sb.toString());
             } else {
-                write.println(sb.toString()); // Use println to add a newline after the data
+                write.println(sb.toString());
             }
+
+            System.out.println("Values inserted into " + tablename+ ".");
 
     }catch (IOException e){
             System.out.println("Failed to insert values into: "+tablename);

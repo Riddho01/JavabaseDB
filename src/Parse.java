@@ -122,8 +122,10 @@ public class Parse {
         else if(command.startsWith("select")){
 
             Pattern select_all=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s*;?$");
-            Pattern select_allWhere=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*(\\w+|'[^']*'|\"[^\"]*\")\\s*;?$");
+            Pattern select_allWhere=Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*('?[^']*'?\"?[^\"]*\"?)\\s*;?$\n");
             Pattern selectColumns=Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s*;?$");
+            Pattern selectColumnsWhere = Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*=\\s*('?[^']*'|\"[^\"]*\"|\\w+)\\s*;?$");
+
 
             Matcher match;
 
@@ -160,11 +162,40 @@ public class Parse {
              // Query.selectStarWhere(tablename,value,operator)
             }
 
+            //Match select col1,col2 from tablename
             else if ((match = selectColumns.matcher(command)).find()) {
 
-                
+                //Get column names and tablename from command
+                String column_part = match.group(1).trim();
+                String tablename = match.group(2);
+
+                //Check if table with name exists
+                if (!Table.doesTableExist(tablename)) {
+                    System.out.println("Table does not exist");
+                    return;
+                }
+
+                //Get the column names
+                String[] columns = column_part.split("\\s*,\\s*");
+
+                //Check if any of the column names do not exist in table
+                for(String column: columns){
+                    if(!Table.doesColExist(tablename,column)){
+                        System.out.println("Column: "+column+" does not exist in Table: "+tablename);
+                        return;
+                    }
+                }
+
+                //Query.selectColumns(tablename,columns);
+
+
             }
 
+            //Match select col1,col2 from tablename where col=val
+            else if ((match = selectColumnsWhere.matcher(command)).matches()) {
+
+                System.out.println("Parsed");
+            }
 
             else{
                 System.out.println("Invalid command format: Try select <* OR Column Names> from <table name> where <column name> = <value>");
