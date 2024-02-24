@@ -2,7 +2,9 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Query {
 
@@ -85,12 +87,7 @@ public class Query {
                     sb.append(",");
                 }
             }
-
-            if (new File(tbdataPath).length()==0) {
-                write.print(sb.toString());
-            } else {
-                write.println(sb.toString());
-            }
+            write.println(sb);
 
             System.out.println("Values inserted into " + tablename+ ".");
 
@@ -99,6 +96,40 @@ public class Query {
         }
     }
 
+    public static void selectStar(String tablename) {
 
+        //Getting the column details of table
+        List<Column> columns = Table.getTableMD(tablename);
 
+        try (BufferedReader br = new BufferedReader(new FileReader(Table.getTableMDPath(tablename).replace(".json",".csv")))) {
+
+            //Print column names
+            for (Column column : columns) {
+                System.out.print(column.getName() + "\t");
+            }
+
+            System.out.println();
+            String row;
+            //Print each row
+            while ((row = br.readLine()) != null) {
+
+                //Values separated by comma in csv file
+                String[] values = row.split(",");
+
+                for (String value : values) {
+                    System.out.print(value + "\t");
+                }
+
+                //Print each new row in a new line
+                System.out.println();
+            }
+        } catch (Exception e) {
+            System.out.println("Failed to read Table: "+tablename);
+        }
+    }
+
+    public static void selectColumns(String tablename, String[] selectedColumns) {
+
+    }
 }
+

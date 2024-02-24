@@ -1,0 +1,7 @@
+{
+"columns": [
+  {"name": "name", "type": "varchar"},
+  {"name": "age", "type": "int"},
+  {"name": "salary", "type": "decimal"}
+]
+}

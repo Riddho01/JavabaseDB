@@ -2,6 +2,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
@@ -13,7 +14,8 @@ public class Table {
     }
 
     public static boolean doesTableExist(String tablename){
-        File table=new File(Table.getTableMDPath(tablename));
+        String tablemdpath=Table.getTableMDPath(tablename);
+        File table=new File(tablemdpath);
         return table.exists();
     }
 
@@ -52,6 +54,7 @@ public class Table {
         }
         return false;
     }
+
 
 
 }

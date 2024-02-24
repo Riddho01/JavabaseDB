@@ -102,6 +102,7 @@ public class Parse {
             //Number of values passed should be the equal to number of columns in table metadata
             if(values.length!=md.size()){
                 System.out.println("Invalid number of provided values");
+                return;
             }
 
             //Verify value passed matches datatype of corresponding column
@@ -121,11 +122,11 @@ public class Parse {
         //Parse select commands
         else if(command.startsWith("select")){
 
+            //Regex patterns to identify select query type
             Pattern select_all=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s*;?$");
-            Pattern select_allWhere=Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*('?[^']*'?\"?[^\"]*\"?)\\s*;?$\n");
+            Pattern select_allWhere = Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*(.+?)\\s*;?$");
             Pattern selectColumns=Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s*;?$");
-            Pattern selectColumnsWhere = Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*(?:'?([^']*?)'?)\\s*;?$");
-
+            Pattern selectColumnsWhere = Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*(.+?)\\s*;?$");
 
             Matcher match;
 
@@ -134,8 +135,10 @@ public class Parse {
                 String tablename=match.group(1);
                 if(!Table.doesTableExist(tablename)){
                     System.out.println("Table: "+tablename+" does not exist");
+                    return;
                 }
-                //Query.selectStar(tablename);
+
+                Query.selectStar(tablename);
             }
 
             //Match select*from tablename where col=value
@@ -158,6 +161,23 @@ public class Parse {
 
                 String operator=match.group(3);
                 String value=match.group(4);
+
+                // Additional check for varchar values
+                if (!(value.matches("-?\\d+(\\.\\d+)?"))) {
+
+                    //Ensure varchar values enclosed in single quotes
+                    if (!value.matches("^'[^']*'$")) {
+                        System.out.println("Invalid format: Varchar values in WHERE clause must be enclosed within single quotes");
+                        return;
+                    }
+                    // Ensure only '=' can be applied to varchar values
+                    if (!operator.equals("=")) {
+                        System.out.println("Value: "+value+" incompatible with operator: "+operator);
+                        return;
+                    }
+                }
+
+//                System.out.println(tablename+","+columnanme);
 
              // Query.selectStarWhere(tablename,value,operator)
             }
@@ -186,12 +206,12 @@ public class Parse {
                     }
                 }
 
-                //Query.selectColumns(tablename,columns);
+//                System.out.println(tablename+","+column_part);
+
+                Query.selectColumns(tablename,columns);
 
 
             }
-
-
 
             //Match select col1,col2 from tablename where col=val
             else if ((match = selectColumnsWhere.matcher(command)).matches()) {
@@ -221,22 +241,34 @@ public class Parse {
                 }
 
                 String operator=match.group(4);
-                System.out.println(operator);;
                 String value=match.group(5);
 
-                System.out.println(value);
+//                System.out.println(tablename+","+columns_part+","+operator+","+value);
+
+                // Additional check for varchar values
+                if (!(value.matches("-?\\d+(\\.\\d+)?"))) {
+
+                    //Ensure varchar values enclosed in single quotes
+                    if (!value.matches("^'[^']*'$")) {
+                        System.out.println("Invalid format: Varchar values in WHERE clause must be enclosed within single quotes");
+                        return;
+                    }
+                    // Ensure only '=' can be applied to varchar values
+                    if (!operator.equals("=")) {
+                        System.out.println("Value: "+value+" incompatible with operator: "+operator);
+                        return;
+                    }
+                }
+                //Query.selectcolumnsWhere(tablename,columns,whereColumn);
 
             }
+
 
             else{
                 System.out.println("Invalid command format: Try select <* OR Column Names> from <table name> where <column name> = <value>");
             }
 
-
         }
-
-
-
 
         //Query cannot be parsed
         else{
