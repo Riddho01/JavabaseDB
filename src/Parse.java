@@ -179,7 +179,7 @@ public class Parse {
 
 //                System.out.println(tablename+","+columnanme);
 
-             // Query.selectStarWhere(tablename,value,operator)
+              Query.selectStarWhere(tablename,columnanme,operator,value);
             }
 
             //Match select col1,col2 from tablename

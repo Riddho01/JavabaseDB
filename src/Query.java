@@ -167,5 +167,45 @@ public class Query {
             System.out.println("Failed to read Table: " +tablename);
         }
     }
+
+    public static void selectStarWhere(String tablename, String column, String operator, String value) {
+
+        try (BufferedReader br = new BufferedReader(new FileReader(Table.getTableMDPath(tablename).replace(".json", ".csv")))) {
+
+            List<Column> TableMD = Table.getTableMD(tablename);
+
+            //Print all column names
+            for (Column col: TableMD) {
+                System.out.print(col.getName() + "\t");
+            }
+            System.out.println();
+
+            // Get index of comparison column from meta-data
+            int index = -1;
+            for (int i = 0; i < TableMD.size(); i++) {
+                if (TableMD.get(i).getName().equalsIgnoreCase(column)) {
+                    index = i;
+                    break;
+                }
+            }
+
+            String row;
+            while ((row = br.readLine()) != null) {
+                String[] rowdata = row.split(",");
+
+                if (index < rowdata.length) {
+                    // If condition met, print entire row
+                    if (Util.checkCondition(rowdata[index], value, operator)) {
+                        for (String data : rowdata) {
+                            System.out.print(data + "\t");
+                        }
+                        System.out.println();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading Table: "+tablename);
+        }
+    }
 }
 
