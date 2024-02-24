@@ -229,6 +229,7 @@ public class Parse {
                 //Check if where clause column name in valid
                 if(!Table.doesColExist(tablename,whereColumn)){
                     System.out.println("Column: "+whereColumn+" does not exist in Table: "+tablename);
+                    return;
                 }
 
                 //Check if any of the columns provided do not exist in the table
@@ -259,7 +260,7 @@ public class Parse {
                         return;
                     }
                 }
-                //Query.selectcolumnsWhere(tablename,columns,whereColumn);
+                Query.selectColumnsWhere(tablename,columns,whereColumn,operator,value);
 
             }
 

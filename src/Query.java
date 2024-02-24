@@ -95,6 +95,7 @@ public class Query {
         }
     }
 
+    //Display all records
     public static void selectStar(String tablename) {
 
         if (Table.isTableEmpty(tablename)) {
@@ -133,6 +134,7 @@ public class Query {
         }
     }
 
+    //Display specific records
     static void selectColumns(String tablename, String[] selectedColumns) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(Table.getTableMDPath(tablename).replace(".json", ".csv")))) {
@@ -168,6 +170,7 @@ public class Query {
         }
     }
 
+    //Display all records satisfying condition
     public static void selectStarWhere(String tablename, String column, String operator, String value) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(Table.getTableMDPath(tablename).replace(".json", ".csv")))) {
@@ -207,5 +210,56 @@ public class Query {
             System.out.println("Error reading Table: "+tablename);
         }
     }
+
+    public static void selectColumnsWhere(String tablename, String[] columns, String column, String operator, String value) {
+
+
+        try (BufferedReader br = new BufferedReader(new FileReader( Table.getTableMDPath(tablename).replace(".json", ".csv")))) {
+            List<Column> tableMD = Table.getTableMD(tablename);
+
+            // Get selected column and condition column index
+            int[] sIndices = new int[columns.length];
+            int conditionalColIndex = -1;
+            for (int i = 0; i < tableMD.size(); i++) {
+                String metaColumnName = tableMD.get(i).getName();
+                if (metaColumnName.equalsIgnoreCase(column)) {
+                    conditionalColIndex = i;
+                }
+                for (int j = 0; j < columns.length; j++) {
+                    if (metaColumnName.equalsIgnoreCase(columns[j])) {
+                        sIndices[j] = i;
+                    }
+                }
+            }
+
+            // Print headers for selected columns
+            Arrays.stream(columns).forEach(col -> System.out.print(col + "\t"));
+            System.out.println();
+
+            String row;
+            while ((row = br.readLine()) != null) {
+                String[] rowdata = row.split(",");
+                if (conditionalColIndex < rowdata.length && Util.checkCondition(rowdata[conditionalColIndex],value, operator)) {
+
+                    // Print selected rows satisfying condition
+                    for (int index : sIndices) {
+                        if (index < rowdata.length) {
+                            System.out.print(rowdata[index] + "\t");
+                        } else {
+                            System.out.print("N/A\t");
+                        }
+                    }
+                    System.out.println();
+                }
+            }
+        } catch (Exception e) {
+            System.out.println("Error reading Table:  " +tablename);
+        }
+    }
+
+
+
 }
+
+
 
