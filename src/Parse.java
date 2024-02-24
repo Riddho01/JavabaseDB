@@ -124,7 +124,7 @@ public class Parse {
             Pattern select_all=Pattern.compile("(?i)^\\s*SELECT\\s*\\*\\s*FROM\\s+(\\w+)\\s*;?$");
             Pattern select_allWhere=Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*('?[^']*'?\"?[^\"]*\"?)\\s*;?$\n");
             Pattern selectColumns=Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s*;?$");
-            Pattern selectColumnsWhere = Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*=\\s*('?[^']*'|\"[^\"]*\"|\\w+)\\s*;?$");
+            Pattern selectColumnsWhere = Pattern.compile("(?i)^\\s*SELECT\\s+([\\w\\s,]+)\\s+FROM\\s+(\\w+)\\s+WHERE\\s+(\\w+)\\s*(=|<>|<=|>=|<|>)\\s*(?:'?([^']*?)'?)\\s*;?$");
 
 
             Matcher match;
@@ -191,10 +191,41 @@ public class Parse {
 
             }
 
+
+
             //Match select col1,col2 from tablename where col=val
             else if ((match = selectColumnsWhere.matcher(command)).matches()) {
 
-                System.out.println("Parsed");
+                String tablename=match.group(2);
+                String columns_part=match.group(1).trim();
+                String whereColumn=match.group(3);
+
+                //Check if table exists
+                if(!Table.doesTableExist(tablename)){
+                    System.out.println("Table: "+tablename+" does not exist");
+                    return;
+                }
+
+                //Check if where clause column name in valid
+                if(!Table.doesColExist(tablename,whereColumn)){
+                    System.out.println("Column: "+whereColumn+" does not exist in Table: "+tablename);
+                }
+
+                //Check if any of the columns provided do not exist in the table
+                String[] columns=columns_part.split("\\s*,\\s*");
+                for(String column: columns){
+                    if(!Table.doesColExist(tablename,column)){
+                        System.out.println("Column: "+column+" does not exist in Table: "+tablename);
+                        return;
+                    }
+                }
+
+                String operator=match.group(4);
+                System.out.println(operator);;
+                String value=match.group(5);
+
+                System.out.println(value);
+
             }
 
             else{
