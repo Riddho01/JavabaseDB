@@ -5,6 +5,7 @@ import org.json.simple.parser.JSONParser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 public class Table {
@@ -51,6 +52,16 @@ public class Table {
             if(col.getName().trim().equalsIgnoreCase(columname.trim())){
                 return true;
             }
+        }
+        return false;
+    }
+    public static boolean isTableEmpty(String tablename){
+        try(BufferedReader br=new BufferedReader(new FileReader(Table.getTableMDPath(tablename).replace(".json",".csv")))){
+                if(br.readLine()==null){
+                    return true;
+                }
+        }catch (IOException e){
+            System.out.println("Failed to read Table: "+tablename);
         }
         return false;
     }
