@@ -87,8 +87,8 @@ public class Query {
                 }
             }
             write.println(sb);
+            System.out.println("Value inserted into table: "+tablename);
 
-            System.out.println("Values inserted into " + tablename + ".");
 
         } catch (IOException e) {
             System.out.println("Failed to insert values into: " + tablename);

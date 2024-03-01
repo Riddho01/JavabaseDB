@@ -114,6 +114,13 @@ public class Parse {
 
             }
 
+            //If the program is in transaction, then add the command to buffer
+            if(Transaction.isIsInTransaction()){
+                Transaction.addToBuffer(command);
+                System.out.println("Added to buffer. Type 'commit' to save changes to disk");
+                return;
+            }
+
             Query.insertInto(tablename,values);
 
 
@@ -271,10 +278,53 @@ public class Parse {
 
         }
 
+        else if(command.equalsIgnoreCase("begin transaction")){
+
+            //If already in a transaction and there are commands in buffer, it will commit the previous transaction
+            if(Transaction.isIsInTransaction() && !Transaction.getBuffer().isEmpty()){
+                System.out.println("Already in transaction. Commit or rollback previous transaction to continue");
+            }
+
+            Transaction.setIsInTransaction(true);
+        }
+
+        else if(command.equalsIgnoreCase("commit")){
+
+            //If in transaction and there are commands in buffer commit
+            if(Transaction.isIsInTransaction() && !Transaction.getBuffer().isEmpty()) {
+                Transaction.setIsInTransaction(false);
+                Transaction.runCommands();
+                Transaction.clearBuffer();
+                System.out.println("Commit successful");
+            }
+
+                //If no commands in buffer, inform user
+                else{
+                    System.out.println("Nothing to commit");
+                }
+
+            }
+
+        else if(command.equalsIgnoreCase("rollback")){
+
+            if(!Transaction.isIsInTransaction()){
+                System.out.println("Not in transaction");
+            }
+
+            if(Transaction.isIsInTransaction()){
+                Transaction.clearBuffer();
+                Transaction.setIsInTransaction(false);
+                System.out.println("Rollback Successful");
+            }
+        }
+
+
+
+
+
         //Query cannot be parsed
         else{
             System.out.println("Invalid Command");
         }
     }
-
 }
