@@ -3,9 +3,35 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The {@code Parse} class is responsible for parsing and executing SQL commands entered by the user.
+ * After parsing, it initiates the query execution by invoking the appropriate method from the {@code Query} class.
+ *
+ * <p><b>Supported Commands:</b></p>
+ *
+ * <p><b>Data Definition Language (DDL):</b></p>
+ * <ul>
+ *   <li>{@code create database <database_name>}: Creates a new database. Only one database can be created per user.</li>
+ *   <li>{@code create table <table_name> (column_name data_type, ...)}: Creates a new table with the specified columns.</li>
+ * </ul>
+ *
+ * <p><b>Data Manipulation Language (DML):</b></p>
+ * <ul>
+ *   <li>{@code insert into <table_name> values (<value1>, <value2>, ...)}: Inserts data into the specified table.</li>
+ *   <li>{@code select * from <table_name>}: Retrieves all records from the specified table.</li>
+ *   <li>{@code select <column1>, <column2> from <table_name> where <condition>}: Retrieves specific columns from the specified table based on a condition.</li>
+ * </ul>
+ */
+
+
 public class Parse {
 
-    //Parse typed command
+    /**
+     * Parse given SQL command.
+     * After type of command identified from parsing, invoke the corresponding method for the operation such as
+     * creating a database, creating a table, inserting data, or selecting data.
+     * @param command the SQL command to be parsed.
+     */
     public static void parseCommand(String command){
 
         //Remove leading and trailing spaces from command before processing
@@ -123,7 +149,6 @@ public class Parse {
 
             Query.insertInto(tablename,values);
 
-
         }
 
         //Parse select commands
@@ -184,8 +209,6 @@ public class Parse {
                     }
                 }
 
-//                System.out.println(tablename+","+columnanme);
-
               Query.selectStarWhere(tablename,columnanme,operator,value);
             }
 
@@ -213,10 +236,7 @@ public class Parse {
                     }
                 }
 
-//                System.out.println(tablename+","+column_part);
-
                 Query.selectColumns(tablename,columns);
-
 
             }
 
@@ -250,8 +270,6 @@ public class Parse {
 
                 String operator=match.group(4);
                 String value=match.group(5);
-
-//                System.out.println(tablename+","+columns_part+","+operator+","+value);
 
                 // Additional check for varchar values
                 if (!(value.matches("-?\\d+(\\.\\d+)?"))) {
@@ -317,10 +335,6 @@ public class Parse {
                 System.out.println("Rollback Successful");
             }
         }
-
-
-
-
 
         //Query cannot be parsed
         else{

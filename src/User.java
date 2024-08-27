@@ -3,12 +3,31 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 
+/**
+ * The {@code User} class manages user-related operations, such as checking if a user exists,
+ * retrieving the current user's database path, and handling the current user's ID.
+ * <p>
+ * This class provides utility functions for verifying user existence, obtaining the path to a user's
+ * database directory, and managing the current user's ID.
+ * </p>
+ */
 public class User {
 
-    //Logged-in user's Id
+    /**
+     * The ID of the currently logged-in user.
+     */
     private static String currentUserID=null;
 
-    //Check if user with given id exists
+    /**
+     * Check if a user with the given ID exists in the system.
+     * <p>
+     * Read the user authentication data from the CSV file and checks if the specified
+     * user ID is present.
+     * </p>
+     *
+     * @param userID The ID of the user to check for existence.
+     * @return {@code true} if the user exists, {@code false} otherwise.
+     */
     public static boolean userExists(String userID){
 
         //Traversing through the users.csv file and checking if the entered UserId already exists
@@ -30,7 +49,15 @@ public class User {
         return false;
     }
 
-    //Get user's database folder path
+    /**
+     * Retrieve the path to the current user's database folder.
+     * <p>
+     * This method constructs the path to the user's directory and checks for the existence of a database
+     * directory within it. If a database exists, its path is returned.
+     * </p>
+     *
+     * @return The path to the user's database folder, or {@code null} if no database is found.
+     */
     public static String getUserDBPath() {
         //current user's directory
         String userdirPath=Authentication.getUsers()+User.getCurrentUserID();

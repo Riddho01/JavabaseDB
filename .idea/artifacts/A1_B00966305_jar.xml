@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="A1_B00966305:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/A1_B00966305_jar</output-path>
+    <root id="archive" name="A1_B00966305.jar">
+      <element id="module-output" name="A1_B00966305" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/json-simple-1.1.1.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

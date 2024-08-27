@@ -6,16 +6,28 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * The {@code Query} class provides methods to perform the corresponding operation for SQL commands. It supports creating databases and tables, inserting data,
+ * and querying data with or without conditions.
+ */
 public class Query {
 
-    //Create database
+    /**
+     * Create a database as a directory inside the user's directory.
+     * <p>
+     * The database will be created inside the `data/users/user_Id` directory.
+     * Only one database can be created per user. If a database already exists,
+     * a message will be displayed indicating that no more databases can be created.
+     * </p>
+     *
+     * @param dbname Name of the database to be created.
+     */
     public static void createDatabase(String dbname) {
 
         if (User.getUserDBPath() != null) {
             System.out.println("Cannot create more than one database.");
             return;
         }
-
         File databaseFolder = new File(Authentication.getUsers() + "/" + User.getCurrentUserID(), dbname);
         if (databaseFolder.mkdir()) {
             System.out.println("Database created successfully");
@@ -25,7 +37,18 @@ public class Query {
 
     }
 
-    //Create tables in database
+    /**
+     * Create a table in the current user's database.
+     * <p>
+     * Creates two files: one for table metadata (in JSON format)
+     * and another for table data (in CSV format). If a table with the same name
+     * already exists, it will not create a new table.
+     * </p>
+     *
+     * @param tablename Name of the table to be created.
+     * @param columndefs List of column definitions where each definition is in
+     *                   the format "column_name datatype".
+     */
     public static void createTable(String tablename, List<String> columndefs) {
 
         //Current user's database folder path
@@ -71,7 +94,15 @@ public class Query {
 
     }
 
-    //Insert data in tables
+    /**
+     * Insert a row of data into the specified table.
+     * <p>
+     * Data is appended to the end of the table's data (CSV) file.
+     * </p>
+     *
+     * @param tablename The name of the table where the data will be inserted.
+     * @param values Array of values to be inserted into the table.
+     */
     public static void insertInto(String tablename, String[] values) {
 
         //Table data file path
@@ -95,7 +126,14 @@ public class Query {
         }
     }
 
-    //Display all records
+    /**
+     * Displays all records in the specified table.
+     * <p>
+     * Reads the table's CSV file and prints all rows to the console.
+     * </p>
+     *
+     * @param tablename The name of the table from which to retrieve and display records.
+     */
     public static void selectStar(String tablename) {
 
         if (Table.isTableEmpty(tablename)) {
@@ -134,7 +172,15 @@ public class Query {
         }
     }
 
-    //Display specific records
+    /**
+     * Display specific columns from the specified table.
+     * <p>
+     * Reads the table data and prints only the selected columns for each row.
+     * </p>
+     *
+     * @param tablename Name of the table from which to display data.
+     * @param selectedColumns An array of column names to be displayed.
+     */
     static void selectColumns(String tablename, String[] selectedColumns) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(Table.getTableMDPath(tablename).replace(".json", ".csv")))) {
@@ -170,7 +216,19 @@ public class Query {
         }
     }
 
-    //Display all records satisfying condition
+    /**
+     * Display all records from the specified table that satisfy a given condition.
+     * <p>
+     * Read the table data and print the rows where the value in the specified column meets the condition
+     * defined by the {@code operator} and {@code value}. The column name, operator, and value for filtering are provided as parameters.
+     * </p>
+     *
+     * @param tablename The name of the table from which to select records.
+     * @param column The name of the column on which to apply the condition.
+     * @param operator The operator used for the condition (e.g., '=', '>', '<').
+     * @param value The value to compare against the column data.
+     */
+
     public static void selectStarWhere(String tablename, String column, String operator, String value) {
 
         try (BufferedReader br = new BufferedReader(new FileReader(Table.getTableMDPath(tablename).replace(".json", ".csv")))) {
@@ -211,6 +269,20 @@ public class Query {
         }
     }
 
+    /**
+     * Displays selected columns from records in the specified table that satisfy the
+     * given condition.
+     * <p>
+     * It reads from the table's CSV file, checks each row against the condition,
+     * and prints specified columns for rows that meet the condition.
+     * </p>
+     *
+     * @param tablename The name of the table from which to retrieve records.
+     * @param columns An array of column names to be displayed.
+     * @param column The column name on which the condition is based.
+     * @param operator The operator for the condition (e.g., '=', '<', '>', etc.).
+     * @param value The value to compare against the column values.
+     */
     public static void selectColumnsWhere(String tablename, String[] columns, String column, String operator, String value) {
 
 
@@ -256,8 +328,6 @@ public class Query {
             System.out.println("Error reading Table:  " +tablename);
         }
     }
-
-
 
 }
 

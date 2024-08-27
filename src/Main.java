@@ -1,13 +1,21 @@
-    import java.util.Scanner;
+import java.util.Scanner;
+
+/**
+ * Entry point to the DBMS application.
+ * User provided with options to Sign-Up, Login, or Exit.
+ * After logging in, the user can enter MySQL commands until they choose to logout.
+ */
     public class Main {
         public static void main(String[] args) {
 
             while (true) {
+
                 //User Choices
                 System.out.println("1. Sign-Up\n2. Login\n3. Exit");
                 Scanner sc = new Scanner(System.in);
                 String choice = sc.next();
                 sc.nextLine();
+
                     switch (choice) {
                         case "1":
                             System.out.println("Enter UserId");
@@ -37,7 +45,6 @@
 
                             if (Authentication.login(UserID_login, Password_Login)) {
                                 System.out.println("Login Successful");
-                                //Authentication.setCurrentUserID(UserID_login);
                                 User.setCurrentUserID(UserID_login);
 
                                 sc.nextLine();
@@ -48,8 +55,6 @@
                                     String command = sc.nextLine();
 
                                     if(command.trim().equalsIgnoreCase("Logout")){
-
-                                       // Authentication.setCurrentUserID(null);
                                         User.setCurrentUserID(null);
                                         break;
                                     }
@@ -71,7 +76,6 @@
                     }
                 System.out.println();
                 }
-
 
             }
 

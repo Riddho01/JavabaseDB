@@ -1,6 +1,0 @@
-{
-"columns": [
-  {"name": "name", "type": "varchar"},
-  {"name": "salary", "type": "decimal"}
-]
-}

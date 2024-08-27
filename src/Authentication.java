@@ -2,15 +2,29 @@ import java.io.*;
 import java.util.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+/**
+ * The {@code Authentication} class handles user authentication i.e. sign-up and login.
+ * User credentials stored in CSV format. Password hashed using MD5 algorithm.
+ */
 public class Authentication {
 
-    //File-Path of file containing user authentication data
-    private static final String user_authentication_data ="Data/User_Authentication/authentication_credentials.csv";
-    private static final String users="Data/Users/";
+    /** Path of CSV file containing auth credentials.*/
+    private static final String user_authentication_data ="data/User_Authentication/authentication_credentials.csv";
+    /**Path of directory containing user's tables*/
+    private static final String users="data/Users/";
 
-    //New User Sign Up
-    public static boolean SignUp(String userID,String password){
-
+    /**
+     * Register a new user with given userID and password.
+     * Password is hashed using MD5 and stored in CSV.
+     A directory for the user is created inside the {@link #users} directory.
+     *
+     * @param userID user's unique identifier.
+     * @param password user's login password.
+     * @return {@code true} if sign-up successful, {@code false} otherwise.
+     */
+    public static boolean SignUp(String userID,String password)
+    {
         //Storing the password in hashed format
         String hashedPassword=Authentication.hashPassword(password);
 
@@ -39,7 +53,12 @@ public class Authentication {
 
     }
 
-    //Hash new user password using MD-5 algorithm
+    /**
+     * Hash a given password using the MD5 algorithm.
+     *
+     * @param password the password to be hashed.
+     * @return the hashed password as a hexadecimal string, or {@code null} if error occurs during hash operation.
+     */
     private static String hashPassword(String password){
 
         try {
@@ -61,7 +80,14 @@ public class Authentication {
         }
     }
 
-    //Existing User Login
+    /**
+     * Log in a user by verifying the userID and password against stored credentials.
+     * If the credentials match, a CAPTCHA is generated and verified for successful login.
+     *
+     * @param userID user's unique identifier.
+     * @param password user's password.
+     * @return {@code true} if login successful, {@code false} otherwise.
+     */
     public static boolean login(String userID, String password){
 
         try(BufferedReader br=new BufferedReader(new FileReader(user_authentication_data))){

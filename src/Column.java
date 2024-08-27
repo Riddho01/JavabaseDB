@@ -1,9 +1,16 @@
+/**
+ * The {@code Column} class represents a column in a table,
+ * containing name and datatype attributes.
+ */
 public class Column {
 
-    //Column name attribute
+    /**Name of the column. */
     private String name;
 
-    //Column datatype attribute
+    /**
+     * Datatype of the column.
+     * Allowed datatypes are {@code int}, {@code decimal}, and {@code varchar}.
+     */
     private String datatype;
 
     public Column(String name, String datatype) {
@@ -11,11 +18,10 @@ public class Column {
         this.datatype = datatype;
     }
 
-    //Getters and Setters
+
     public String getName() {
         return name;
     }
-
     public String getDatatype() {
         return datatype;
     }

@@ -8,19 +8,54 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * The {@code Table} class provides methods for interacting with table metadata and data.
+ * <p>
+ * It handles operations such as checking the existence of tables and columns, retrieving table metadata,
+ * and determining whether a table contains any data. The metadata of each table is stored in a JSON file,
+ * while the table data is stored in a CSV file.
+ * </p>
+ */
+
 public class Table {
+
+    /**
+     * Return the path for the file containing the specified table's metadata.
+     * <p>
+     * The metadata file is a JSON file located in the user's database directory.
+     * </p>
+     *
+     * @param tablename Name of the table whose metadata path is to be retrieved.
+     * @return The file path of the table's metadata file.
+     */
 
     public static String getTableMDPath(String tablename){
         return User.getUserDBPath()+"/"+tablename+".json";
     }
 
+    /**
+     * Check if a table already exists in the user's database.
+     *
+     * @param tablename The name of the table to check for existence.
+     * @return {@code true} if the table exists; {@code false} otherwise.
+     */
     public static boolean doesTableExist(String tablename){
         String tablemdpath=Table.getTableMDPath(tablename);
         File table=new File(tablemdpath);
         return table.exists();
     }
 
-    //Get table meta data
+    /**
+     * Retrieve the metadata of the specified table.
+     * <p>
+     * Metadata includes column information, such as column names and data types.
+     * </p>
+     *
+     * @param tablename The name of the table whose metadata is to be retrieved.
+     * @return A list of {@code Column} objects representing the metadata of the table.
+     */
+
     public static List<Column> getTableMD(String tablename){
 
         List<Column> md=new ArrayList<>();
@@ -44,7 +79,14 @@ public class Table {
         return md;
     }
 
-    //Check if column exists in table
+    /**
+     * Check if a column with the specified name exists in the given table.
+     *
+     * @param tablename The name of the table in which to check for the column.
+     * @param columname The name of the column to check for existence.
+     * @return {@code true} if the column exists; {@code false} otherwise.
+     */
+
     public static boolean doesColExist(String tablename, String columname){
         List<Column> columns=Table.getTableMD(tablename);
 
@@ -55,6 +97,14 @@ public class Table {
         }
         return false;
     }
+
+    /**
+     * Check if the specified table contains any data.
+     *
+     * @param tablename The name of the table to check for data.
+     * @return {@code true} if the table is empty; {@code false} otherwise.
+     */
+
     public static boolean isTableEmpty(String tablename){
         try(BufferedReader br=new BufferedReader(new FileReader(Table.getTableMDPath(tablename).replace(".json",".csv")))){
                 if(br.readLine()==null){
@@ -65,7 +115,6 @@ public class Table {
         }
         return false;
     }
-
 
 
 }
