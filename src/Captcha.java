@@ -1,20 +1,24 @@
 import java.util.Random;
 
+/**
+ * The {@code Captcha} class deals with generation and verification of CAPTCHA strings during authentication.
+ * It uses a combination of alphanumeric characters to create a random string.
+ */
 public class Captcha {
 
-    //Attribute captcha
+    /** The generated CAPTCHA string. */
     private static String captcha;
 
-    //captcha getter
-    public static String getCaptcha() {
-        return captcha;
-    }
+    /**
+     * Generate a random CAPTCHA string within a certain minimum and maximum length range.
+     * String is composed of lowercase and uppercase alphabetic characters and digits.
+     */
     public static void generateCaptcha(){
 
         Random rand=new Random();
-        //Hard-Coded values of minimum and maximum length of captcha
-        int minLength=25;
-        int maxLength=300;
+        // Adjust the minimum and maximum length of the CAPTCHA.
+        int minLength=1;
+        int maxLength=6;
 
         //Generate the random length of the captcha within the bounds of minLength and maxLength
         int length=rand.nextInt((maxLength-minLength)+1)+minLength;
@@ -34,11 +38,21 @@ public class Captcha {
         captcha=generatedCaptcha.toString();
     }
 
+    /**
+     * Verify if the entered text matches the generated CAPTCHA.
+     *
+     * @param enteredCaptcha the string entered by the user.
+     * @return {@code true} if the entered text matches the generated CAPTCHA, {@code false} otherwise.
+     */
     public static boolean verifyCaptcha(String enteredCaptcha){
-
         //if enteredCaptcha is equal to generated captcha, then returning true
         return captcha.equals(enteredCaptcha);
 
+    }
+
+
+    public static String getCaptcha() {
+        return captcha;
     }
 
 

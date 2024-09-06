@@ -2,34 +2,48 @@ import java.io.*;
 import java.util.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+
+/**
+ * The {@code Authentication} class handles user authentication i.e. sign-up and login.
+ * User credentials stored in CSV format. Password hashed using MD5 algorithm.
+ */
 public class Authentication {
 
-    //File-Path of file containing user authentication data
-    private static final String user_auth_data ="Data/User_Authentication/user_credentials.csv";
-    private static final String users="Data/Users/";
+    /** Path of CSV file containing auth credentials.*/
+    private static final String user_authentication_data ="data/User_Authentication/authentication_credentials.csv";
+    /**Path of directory containing user's tables*/
+    private static final String users="data/Users/";
 
-    //New User Sign Up
-    public static boolean SignUp(String userID,String password){
-
+    /**
+     * Register a new user with given userID and password.
+     * Password is hashed using MD5 and stored in CSV.
+     A directory for the user is created inside the {@link #users} directory.
+     *
+     * @param userID user's unique identifier.
+     * @param password user's login password.
+     * @return {@code true} if sign-up successful, {@code false} otherwise.
+     */
+    public static boolean SignUp(String userID,String password)
+    {
         //Storing the password in hashed format
         String hashedPassword=Authentication.hashPassword(password);
 
         //Creating comma separated userId and password as the UserRecord
         String userRecord= userID+","+hashedPassword;
 
+        // Creating a directory for the user under 'Users' directory
+        File userDirectory = new File(users + userID);
+        if (!userDirectory.exists()) {
+            if (!userDirectory.mkdirs()) {
+                return false; // Failed to create user folder
+            }
+        }
+
         //Inserting new user's record using a File Writer
-        try (FileWriter f = new FileWriter(user_auth_data,true)) {
+        try (FileWriter f = new FileWriter(user_authentication_data,true)) {
                 f.write(userRecord+"\n");
 
-            //Creating a directory for the user under 'Users' directory
-            File userDiretory = new File(users+userID);
-            if (!userDiretory.exists()) {
-                if (!userDiretory.mkdirs()) {
-                    return false; // Failed to create user folder
-                }
-            }
-
-                //Returning True indicating user signed up successfully
+                //Returning True indicating user authentication captured successfully
                 return true;
         } catch (IOException e) {
             e.printStackTrace();
@@ -39,7 +53,12 @@ public class Authentication {
 
     }
 
-    //Hash new user password using MD-5 algorithm
+    /**
+     * Hash a given password using the MD5 algorithm.
+     *
+     * @param password the password to be hashed.
+     * @return the hashed password as a hexadecimal string, or {@code null} if error occurs during hash operation.
+     */
     private static String hashPassword(String password){
 
         try {
@@ -61,32 +80,17 @@ public class Authentication {
         }
     }
 
-    public static boolean userExists(String userID){
-
-        //Traversing through the users.csv file and checking if the entered UserId already exists
-        try(BufferedReader br=new BufferedReader( new FileReader(user_auth_data))){
-
-            String line;
-            while((line = br.readLine())!=null){
-
-                String storedUserID=line.split(",")[0];
-
-                if(storedUserID.equals(userID)){
-                    //returning true if found a user with passed userID
-                    return true;
-                }
-            }
-
-        }catch (IOException e){
-            e.printStackTrace();
-        }
-        //If UserId does not exist in users.csv, returning false.
-        return false;
-    }
-
+    /**
+     * Log in a user by verifying the userID and password against stored credentials.
+     * If the credentials match, a CAPTCHA is generated and verified for successful login.
+     *
+     * @param userID user's unique identifier.
+     * @param password user's password.
+     * @return {@code true} if login successful, {@code false} otherwise.
+     */
     public static boolean login(String userID, String password){
 
-        try(BufferedReader br=new BufferedReader(new FileReader(user_auth_data))){
+        try(BufferedReader br=new BufferedReader(new FileReader(user_authentication_data))){
 
             String line;
             while((line= br.readLine())!=null){
@@ -116,7 +120,13 @@ public class Authentication {
             return false;
         }
     }
-    
 
+   // Getters and Setters
+    public static String getUser_authentication_data(){
+        return user_authentication_data;
+    }
 
+    public static String getUsers() {
+        return users;
+    }
 }
