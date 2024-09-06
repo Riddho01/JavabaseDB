@@ -5,7 +5,7 @@ JavabaseDB is a prototype Database Management System (DBMS) implemented using Ja
 ## Features
 - **User Authentication**: Sign up and log in with credentials and CAPTCHA for secure access.
 - **SQL Command Execution**: Run SQL commands directly through the command line interface.
-- **Transaction Management**: Use commands like `BEGIN`, `COMMIT`, `ROLLBACK`, and `SAVEPOINT` to manage database transactions efficiently.
+- **Transaction Management**: Use commands like `BEGIN`, `COMMIT` and `ROLLBACK` to manage database transactions efficiently.
 
 ## Getting Started
 
@@ -73,8 +73,9 @@ Before you begin, ensure you have the following installed:
 ### Transactions
 * `BEGIN TRANSACTION` - Start a new transaction.
 * `COMMIT` - Save all changes made during the transaction.
+![commit](https://github.com/user-attachments/assets/a38ddeed-b1ab-4192-9b8c-0b76079c92a1)
 * `ROLLBACK` - Revert all changes made during the transaction.
-* `SAVEPOINT <SAVEPOINT_NAME>` - Set a savepoint within the transaction.
+![Rollback](https://github.com/user-attachments/assets/ddc464f6-1470-4c68-9154-94ca1cd0f7b0)
 
 ### Supported Data Types
 * `INT` - Integer data type.
@@ -91,7 +92,8 @@ JavabaseDB organizes user data into a straightforward directory structure:
 - When a database is created, it appears as a subdirectory within the user’s folder.
 
 ![DataStorage](https://github.com/user-attachments/assets/28018ddf-8a53-4fd3-9965-6d6cf39c472f)
-- For each table in the database:
+
+For each table in the database:
   - A **metadata file** (JSON) contains the schema information, such as column names and data types.
 
 ![Metadata](https://github.com/user-attachments/assets/296e4774-b027-4b9e-ac81-9b29e7201945)
