@@ -75,8 +75,10 @@ Before you begin, ensure you have the following installed:
 ### Transactions
 * `BEGIN TRANSACTION` - Start a new transaction.
 * `COMMIT` - Save all changes made during the transaction.
+
 ![commit](https://github.com/user-attachments/assets/a38ddeed-b1ab-4192-9b8c-0b76079c92a1)
 * `ROLLBACK` - Revert all changes made during the transaction.
+
 ![Rollback](https://github.com/user-attachments/assets/ddc464f6-1470-4c68-9154-94ca1cd0f7b0)
 
 ### Supported Data Types
