@@ -62,6 +62,7 @@ Before you begin, ensure you have the following installed:
       * `SELECT * FROM <TABLE_NAME> WHERE <column> <operator> <value>`
 
 ![selectAllCond](https://github.com/user-attachments/assets/cae6a14e-fe15-4b70-aacc-36151946b4da)
+
     * **Retrieve Specific Columns with Condition**
       * `SELECT <col1>, <col2>, ... FROM <TABLE_NAME> WHERE <column> <operator> <value>`
 
@@ -95,5 +96,3 @@ JavabaseDB organizes user data into a straightforward directory structure:
   - A **data file** (CSV) stores the actual table rows.
 
 ![tbdata](https://github.com/user-attachments/assets/590bb022-911a-4b36-81ab-32b348fcdfb5)
-
-![Database Directory Structure](https://miro.medium.com/v2/resize:fit:1400/1*0KFB17_NGTPB0XWyc4BSgQ.jpeg)
