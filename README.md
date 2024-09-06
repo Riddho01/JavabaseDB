@@ -60,13 +60,12 @@ Before you begin, ensure you have the following installed:
 
 ![Select Columns](https://github.com/user-attachments/assets/c09befb1-5737-46e4-9d05-dd32bc3dfea3)
 
-  * **Conditional Queries**
-    * **Retrieve All Columns with Condition**
+   * **Retrieve All Columns with Condition**
       * `SELECT * FROM <TABLE_NAME> WHERE <column> <operator> <value>`
 
 ![Select All with Condition](https://github.com/user-attachments/assets/cae6a14e-fe15-4b70-aacc-36151946b4da)
 
-    * **Retrieve Specific Columns with Condition**
+  * **Retrieve Specific Columns with Condition**
       * `SELECT <col1>, <col2>, ... FROM <TABLE_NAME> WHERE <column> <operator> <value>`
 
 ![Select Columns with Condition](https://github.com/user-attachments/assets/cc9c877c-d59e-413a-bf4b-9ccb4c8ae318)
