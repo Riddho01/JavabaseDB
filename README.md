@@ -31,8 +31,8 @@ Before you begin, ensure you have the following installed:
 1. Start by signing up with a new account using the provided options on the screen.
 2. Log in with your credentials and complete the captcha verification.
 3. Once logged in, you can begin executing SQL commands directly in the console.
-![Authentication](https://github.com/user-attachments/assets/92e499fb-47c9-4620-8433-3da71c307673)
 
+    ![Authentication](https://github.com/user-attachments/assets/92e499fb-47c9-4620-8433-3da71c307673)
 
 ## Supported Operations
 
