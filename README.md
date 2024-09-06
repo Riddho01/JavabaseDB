@@ -45,25 +45,25 @@ Before you begin, ensure you have the following installed:
 ### Data Manipulation Language (DML)
 * **Insert Data**
   * `INSERT INTO <TABLE_NAME> VALUES (<value1>, <value2>, ...)`
-   ![Insert](https://github.com/user-attachments/assets/9f5deab9-5a92-4fcd-81b4-12af2cd291a1)
+ ![Insert](https://github.com/user-attachments/assets/9f5deab9-5a92-4fcd-81b4-12af2cd291a1)
 
 * **Query Data**
   * **Retrieve All Columns**
     * `SELECT * FROM <TABLE_NAME>`
-     ![selectAll](https://github.com/user-attachments/assets/75706868-8b23-42ef-9f59-d14c4d8c7a9d)
+    ![selectAll](https://github.com/user-attachments/assets/75706868-8b23-42ef-9f59-d14c4d8c7a9d)
 
   * **Retrieve Specific Columns**
     * `SELECT <col1>, <col2>, ... FROM <TABLE_NAME>`
-      ![selectCols](https://github.com/user-attachments/assets/c09befb1-5737-46e4-9d05-dd32bc3dfea3)
+    ![selectCols](https://github.com/user-attachments/assets/c09befb1-5737-46e4-9d05-dd32bc3dfea3)
 
   * **Conditional Queries**
     * **Retrieve All Columns with Condition**
       * `SELECT * FROM <TABLE_NAME> WHERE <column> <operator> <value>`
-        ![selectAllCond](https://github.com/user-attachments/assets/cae6a14e-fe15-4b70-aacc-36151946b4da)
+      ![selectAllCond](https://github.com/user-attachments/assets/cae6a14e-fe15-4b70-aacc-36151946b4da)
 
     * **Retrieve Specific Columns with Condition**
       * `SELECT <col1>, <col2>, ... FROM <TABLE_NAME> WHERE <column> <operator> <value>`
-        ![selectCond](https://github.com/user-attachments/assets/cc9c877c-d59e-413a-bf4b-9ccb4c8ae318)
+      ![selectCond](https://github.com/user-attachments/assets/cc9c877c-d59e-413a-bf4b-9ccb4c8ae318)
 
 ### Transactions
 * `BEGIN TRANSACTION` - Start a new transaction.
