@@ -53,23 +53,23 @@ Before you begin, ensure you have the following installed:
   * **Retrieve All Columns**
     * `SELECT * FROM <TABLE_NAME>`
 
-    ![Select All](https://github.com/user-attachments/assets/75706868-8b23-42ef-9f59-d14c4d8c7a9d)
+![Select All](https://github.com/user-attachments/assets/75706868-8b23-42ef-9f59-d14c4d8c7a9d)
 
   * **Retrieve Specific Columns**
     * `SELECT <col1>, <col2>, ... FROM <TABLE_NAME>`
 
-    ![Select Columns](https://github.com/user-attachments/assets/c09befb1-5737-46e4-9d05-dd32bc3dfea3)
+![Select Columns](https://github.com/user-attachments/assets/c09befb1-5737-46e4-9d05-dd32bc3dfea3)
 
   * **Conditional Queries**
     * **Retrieve All Columns with Condition**
       * `SELECT * FROM <TABLE_NAME> WHERE <column> <operator> <value>`
 
-      ![Select All with Condition](https://github.com/user-attachments/assets/cae6a14e-fe15-4b70-aacc-36151946b4da)
+![Select All with Condition](https://github.com/user-attachments/assets/cae6a14e-fe15-4b70-aacc-36151946b4da)
 
     * **Retrieve Specific Columns with Condition**
       * `SELECT <col1>, <col2>, ... FROM <TABLE_NAME> WHERE <column> <operator> <value>`
 
-      ![Select Columns with Condition](https://github.com/user-attachments/assets/cc9c877c-d59e-413a-bf4b-9ccb4c8ae318)
+![Select Columns with Condition](https://github.com/user-attachments/assets/cc9c877c-d59e-413a-bf4b-9ccb4c8ae318)
 
 ### Transactions
 * `BEGIN TRANSACTION` - Start a new transaction.
