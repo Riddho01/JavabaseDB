@@ -29,3 +29,5 @@ bin/
 .DS_Store
 
 data/Users/*
+
+data/User_Authentication/authentication_credentials.csv
