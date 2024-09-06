@@ -1,3 +1,4 @@
+
 # JavabaseDB
 JavabaseDB is a prototype Database Management System (DBMS) implemented using Java. It supports core operations such as creating databases and tables, inserting data, and executing SQL queries. JavabaseDB offers a hands-on approach to understanding database management concepts with built-in user authentication and data handling features.
 
@@ -45,25 +46,23 @@ Before you begin, ensure you have the following installed:
 ### Data Manipulation Language (DML)
 * **Insert Data**
   * `INSERT INTO <TABLE_NAME> VALUES (<value1>, <value2>, ...)`
- ![Insert](https://github.com/user-attachments/assets/9f5deab9-5a92-4fcd-81b4-12af2cd291a1)
 
+    ![Insert](https://github.com/user-attachments/assets/9f5deab9-5a92-4fcd-81b4-12af2cd291a1)
 * **Query Data**
   * **Retrieve All Columns**
     * `SELECT * FROM <TABLE_NAME>`
     ![selectAll](https://github.com/user-attachments/assets/75706868-8b23-42ef-9f59-d14c4d8c7a9d)
-
   * **Retrieve Specific Columns**
     * `SELECT <col1>, <col2>, ... FROM <TABLE_NAME>`
-    ![selectCols](https://github.com/user-attachments/assets/c09befb1-5737-46e4-9d05-dd32bc3dfea3)
 
+    ![selectCols](https://github.com/user-attachments/assets/c09befb1-5737-46e4-9d05-dd32bc3dfea3)
   * **Conditional Queries**
     * **Retrieve All Columns with Condition**
       * `SELECT * FROM <TABLE_NAME> WHERE <column> <operator> <value>`
-      ![selectAllCond](https://github.com/user-attachments/assets/cae6a14e-fe15-4b70-aacc-36151946b4da)
-
+    ![selectAllCond](https://github.com/user-attachments/assets/cae6a14e-fe15-4b70-aacc-36151946b4da)
     * **Retrieve Specific Columns with Condition**
       * `SELECT <col1>, <col2>, ... FROM <TABLE_NAME> WHERE <column> <operator> <value>`
-      ![selectCond](https://github.com/user-attachments/assets/cc9c877c-d59e-413a-bf4b-9ccb4c8ae318)
+    ![selectCond](https://github.com/user-attachments/assets/cc9c877c-d59e-413a-bf4b-9ccb4c8ae318)
 
 ### Transactions
 * `BEGIN TRANSACTION` - Start a new transaction.
@@ -84,8 +83,10 @@ JavabaseDB organizes user data into a straightforward directory structure:
 
 - Each user has a dedicated folder within the `data/Users` directory.
 - When a database is created, it appears as a subdirectory within the user’s folder.
+  ![DataStorage](https://github.com/user-attachments/assets/28018ddf-8a53-4fd3-9965-6d6cf39c472f)
 - For each table in the database:
   - A **metadata file** (JSON) contains the schema information, such as column names and data types.
+  ![Metadata](https://github.com/user-attachments/assets/296e4774-b027-4b9e-ac81-9b29e7201945)
   - A **data file** (CSV) stores the actual table rows.
-
-
+  ![tbdata](https://github.com/user-attachments/assets/590bb022-911a-4b36-81ab-32b348fcdfb5)
+![Database Directory Structure](https://miro.medium.com/v2/resize:fit:1400/1*0KFB17_NGTPB0XWyc4BSgQ.jpeg)
