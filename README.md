@@ -39,6 +39,7 @@ Before you begin, ensure you have the following installed:
     * Note: Only one database per user can be created.
 * **Create a Table**
   * `CREATE TABLE <TABLE_NAME> (column1 datatype, column2 datatype, ...)`
+
 ![DDL](https://github.com/user-attachments/assets/1cbce8d3-89e4-4374-acd6-5eba089fe1fa)
 
 ### Data Manipulation Language (DML)
