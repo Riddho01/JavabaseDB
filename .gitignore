@@ -27,5 +27,3 @@ bin/
 
 ### Mac OS ###
 .DS_Store
-
-data/User_Authentication/authentication_credentials.csv
